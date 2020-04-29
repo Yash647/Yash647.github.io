@@ -27,7 +27,7 @@ initial();
 function moveLeft(){
 
 	/*Buttons has been made disabled so that user by making multiple clicks in small time can't 
-	  disrupt functionality of transition.*/
+	disrupt functionality of transition.*/
 	prev.disabled=true;
 	next.disabled=true;
 
@@ -106,25 +106,39 @@ let startX, startTime, elapsedTime, dist, allowedTime = 1000, swipeDist = 70;
 
 function start(e){
 	var touchObj = e.changedTouches[0];
-    dist = 0;
-    startX = touchObj.clientX;
-    startTime = new Date().getTime(); // record time when finger first makes contact with surface
+    	dist = 0;
+    	startX = touchObj.clientX;
+    	startTime = new Date().getTime(); // record time when finger first makes contact with surface
 }
 
 function end(e){
 	var touchObj = e.changedTouches[0];
 	elapsedTime = new Date().getTime() - startTime; // get time elapsed
-    dist = touchObj.clientX - startX; // get total dist traveled by finger while in contact with surface
-    if(dist>=0){
- 	   var swiperight = (elapsedTime <= allowedTime && dist >= swipeDist);
+    	dist = touchObj.clientX - startX; // get total dist traveled by finger while in contact with surface
+    	if(dist>=0){
+ 	   	var swiperight = (elapsedTime <= allowedTime && dist >= swipeDist);
 	}
 	else{
-    	var swipeleft = (elapsedTime <= allowedTime && Math.abs(dist) >= swipeDist);
-    }
+    		var swipeleft = (elapsedTime <= allowedTime && Math.abs(dist) >= swipeDist);
+    	}
     if(swiperight){
+	//removing event lisetenrs till function completes
+	container.removeEventListener('touchstart', start,{passive:true});
+	container.removeEventListener('touchend', end, {passive:true});
     	moveLeft();
+	setTimeout(()=>{
+    		container.addEventListener('touchstart', start,{passive:true});
+		container.addEventListener('touchend', end, {passive:true});
+    	},301)
     }
     else if(swipeleft){
+	//removing event lisetenrs till function completes
+	container.removeEventListener('touchstart', start,{passive:true});
+	container.removeEventListener('touchend', end, {passive:true});
     	moveRight();
+	setTimeout(()=>{
+    		container.addEventListener('touchstart', start,{passive:true});
+		container.addEventListener('touchend', end, {passive:true});
+    	},301)
     }
 }
