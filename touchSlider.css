@@ -1,0 +1,92 @@
+*{
+	margin:0;
+	padding:0;
+	line-height:1.6;
+}
+#container{
+    width: 100%;
+    height: auto;
+    position:relative;
+}
+#slider{
+	position: relative;
+    overflow: hidden;
+    width: 100%;
+    height:auto;
+}
+#track{
+	height:37vh;	
+	width:100%;
+	position: relative;
+}
+.slide{
+	height:100%;
+	width:100%;
+	/* To remove unwanted space between images present by default nature of html
+	   use float:left*/
+	float:left;
+	position:absolute;
+	left:0%;
+	transition: left .3s linear;
+	visibility: hidden;
+}
+.slide img{
+	height:100%;
+	width:100%;
+}
+.btns button{
+	border-color: transparent white;
+    border-style: solid;
+    cursor: pointer;
+    background: transparent;
+    position: absolute;
+    z-index: 1;
+    top:50%;
+	transform: translate(0,-50%);
+	/*top and translate collectively make button to appear at middle of box*/
+	display:none;
+}
+.btns button:focus{
+	outline: 0;
+}
+#next{
+	border-width: 14px 0px 14px 14px;
+	right:10px;
+}
+#prev{
+	border-width: 14px 14px 14px 0px;
+	left:10px;
+}
+.btns{
+	position: absolute;
+    height: 100%;
+    width: 8%;
+    z-index:2;
+}
+.btns:first-child{
+	left:0;
+	top:0;
+}
+.btns:last-child{
+	right:0;
+	top:0;
+}
+.btns:first-child:hover #prev{
+	display: block;
+}
+.btns:last-child:hover #next{
+	display: block;
+}
+/* Shifting slide to right*/
+.translateR{
+	left:100%;
+}
+/* Shifting slide to left*/
+.translateL{
+	left:-100%;
+}
+/* Making slide visible*/
+.visible{
+	visibility:visible;
+}
+/* instead of overlay we can't use display because transition does not work with it */
